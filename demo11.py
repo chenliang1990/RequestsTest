@@ -16,7 +16,7 @@ print(r.text)
 assert r.status_code == 200 # 状态码
 assert r.json()["status"] == 200 # 判断结果码
 
-# 3.查询数据库
+# 3.数据自动查询功能：一定要考虑正确的情况
 sql = "select * from t_user where username='{}'".format(d["username"]) 
 res = query(sql)
 assert len(res) != 0
