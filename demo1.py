@@ -5,6 +5,7 @@ from dbtools import query
 # res = requests.get(url) #使用get方法请求地址 res=返回值
 # print(res.text)     #res.text就是返回值
 
+#构造请求
 u = "http://192.144.148.91:2333/login"
 d = {"username":"liuyun1", "password":"a12345678"}
 res = requests.post(url = u,json = d)
