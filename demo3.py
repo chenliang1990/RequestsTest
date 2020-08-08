@@ -26,15 +26,24 @@ user_token = read_file("token.txt")
 #接口2 用户写篇文章
 #构造请求
 u1 = "http://192.144.148.91:2333/article/new"
-d1 = {"title":"如何学习测试","content":"每天通宵学习","tags":"测试1234","brief":"好好学习测试","ximg":"chen.jpg"}
+d1 = {"title":"如何学习测试",
+      "content":"每天通宵学习",
+      "tags":"测试1234",
+      "brief":"好好学习测试",
+      "ximg":"chen.jpg"}
 h1 = {"Content-Type":"application/json","token":user_token} #请求头:字典
-res1 = requests.post(url = u1,json = d1,hearders = h1)
-
+res1 = requests.post(url = u1,json = d1,headers = h1)
+# print(res1.text)
 #判断结果
 assert res1.status_code == 200
 assert res1.json()["status"] == 200
 
-#查询数据库
-sql = "select * from t_article where title = '如何学习测试' and context = '每天通宵学习'"
+#查询数据库 第一种写法
+# sql = "select * from t_article where title = '如何学习测试' and content = '每天通宵学习'"
+# assert len(query(sql)) != 0
+# print("发表文章成功")
+#查询数据库 第二种写法
+articleId = res1.json()["data"]["articleid"]
+sql = "select * from t_article where id = {}".format(articleId)
 assert len(query(sql)) != 0
-print("测试通过")
+print("发表文章成功!")
