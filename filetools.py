@@ -1,5 +1,3 @@
-
-
 def write_file(file_path, content):
     """
         方法：写入文件

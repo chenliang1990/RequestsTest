@@ -8,11 +8,14 @@ def query(sql):
     # 连接数据库 固定的，只需要变参数
     db = pymysql.connect(host="192.144.148.91", user="ljtest", password="123456", db="ljtestdb")
     cur = db.cursor()    # 获取游标：查询窗口
-    cur.execute(sql)     # 执行sql语句
-    res = cur.fetchall() # 获取执行的结果
-    db.close()
-
-    return res
+    try:
+        cur.execute(sql)     # 使用游标来执行sql语句
+        res = cur.fetchall() # 获取执行的结果
+        db.close() #使用完之后关闭数据库，不能一直连着
+        return res
+    except Exception as e:
+        db.close()
+        return "sql语句错误! ",e
 
 # sql = "select * from t_user where id=272"
 # r = query(sql)
@@ -25,9 +28,14 @@ def commit(sql):
     db = pymysql.connect(host="192.144.148.91", user="ljtest", password="123456", db="ljtestdb")
     # db = pymysql.connect(host="127.0.0.1", user="root", password="123456", db="lux")
     cur = db.cursor()    # 获取游标：查询窗口
-    cur.execute(sql)     # 指定sql语句
-    db.commit()          # 提交修改(事务)
-    db.close()
+    try:
+        cur.execute(sql)     # 使用游标来执行sql语句
+        db.commit()          # 提交修改(事务)
+        db.close()
+        return True
+    except Exception as e:
+        db.close()
+        return "sql语句错误! ",e
 
 # sql = "update t_user set username='zyhf1' where id=272"
 # commit(sql)

@@ -9,7 +9,7 @@ from dbtools import query
 u = "http://192.144.148.91:2333/login"
 d = {"username":"liuyun1", "password":"a12345678"}
 res = requests.post(url = u,json = d)
-# print(res.text)
+# print(res.text) #text以字符串/文本的格式显示
 
 #判断http状态码和结果码
 assert res.status_code == 200
